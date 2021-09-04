@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Haaunted Waalls</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://npmcdn.com/moralis@0.0.6/dist/moralis.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/utils.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preload" as="font" href="assets/fonts/PressStart2P-Regular.ttf" type="font/ttf" />
+</head>
+
+<body>
+
+    <button id="btn-login">Login</button>
+    <button id="btn-logout">Logout</button>
+
+    <div id="gotchi-selector">
+
+    </div>
+
+    <div id="game-wrapper">
+
+    </div>
+
+    <div id="font-loader">.</div>
+
+    <script>
+        // connect to Moralis server
+        Moralis.initialize("nB1Uvm8AVC6HNyBEFrCe7eJOD0bwTrBphJFSdJVQ");
+        Moralis.serverURL = "https://0bquant9bmbo.bigmoralis.com:2053/server";
+
+        // Start game
+        window.game = new Game();
+    </script>
+
+</body>
+</html>

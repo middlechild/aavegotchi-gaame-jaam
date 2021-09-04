@@ -1,0 +1,33 @@
+@font-face {
+  font-family: CustomFont;
+  font-size: 32px;
+  src: url('../assets/fonts/PressStart2P-Regular.ttf');
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+svg {
+  max-height: 100px;
+  max-width: 100px;
+}
+
+.gotchi-bg {
+  /*visibility: hidden;*/
+}
+
+#font-loader {
+  font-family: CustomFont;
+  position:absolute;
+  left:-1000px;
+  visibility:hidden;
+}
+#gotchi-cleaner {
+  display: none;
+}
