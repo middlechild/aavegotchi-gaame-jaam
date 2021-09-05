@@ -1,10 +1,11 @@
 function Game() {
-    let that, game, player, cursors, spacebar;
+    let that, game, player, cursors, spacebar, ctrl;
     let paused, playing;
     let platforms, background, ground, ceiling, walls, forces;
     let scoreBox, itemsBox, playButton;
     let soundSend, soundOops, soundClick, soundPortal;
     let respawnTime = 0;
+    let score = 0;
 
     let playerAttributes = {
         ethAddress: null,
@@ -22,7 +23,7 @@ function Game() {
             type: Phaser.AUTO,
             width: 1280,
             height: 720,
-            backgroundColor: "#474747",
+            backgroundColor: "#1c1c1c",
             parent: "game-wrapper",
             physics: {
                 default: 'arcade',
@@ -100,7 +101,7 @@ function Game() {
         walls.add(wall);
 
         const offset = Phaser.Math.Between(200, 430);
-        let force = that.physics.add.image(802 + distance, offset, "force");
+        let force = that.physics.add.image(800 + distance, offset, "force");
         force.setDepth(101);
         forces.add(force);
     }
@@ -155,16 +156,17 @@ function Game() {
         soundClick = this.sound.add('click', {volume: 0.2});
         soundPortal = this.sound.add('portal', {volume: 0.2});
 
-        scoreBox = this.add.text(40, 24, "000000", {fill: "#ffffff", font: '400 28px CustomFont', resolution: 5})
+        scoreBox = this.add.text(40, 24, "000000", {fill: "#ffffff", font: '400 28px CustomFont', resolution: 6})
             .setOrigin(0, 0).setAlpha(1);
         scoreBox.setShadow(16, 16, 'rgba(0,0,0,1)', 32);
 
-        itemsBox = this.add.text(280, 24, "~x00", {fill: "#ffffff", font: '400 28px CustomFont', resolution: 5})
+        itemsBox = this.add.text(280, 24, "~x00", {fill: "#ffffff", font: '400 28px CustomFont', resolution: 6})
             .setOrigin(0, 0).setAlpha(1);
         itemsBox.setShadow(16, 16, 'rgba(0,0,0,1)', 32);
 
         cursors = this.input.keyboard.createCursorKeys();
         spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        ctrl = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
     }
 
     // 60 fps updates
@@ -187,24 +189,13 @@ function Game() {
         respawnTime += delta * config.settings.velocity * 0.08;
         if (respawnTime >= 1500) {
             addWall();
-            console.log(respawnTime);
+            // console.log(respawnTime);
             respawnTime = 0;
         }
 
-        if (cursors.left.isDown) {
-            let what = that.physics.world.overlap(player, walls)
-            console.log(what);
-            // player.setVelocityX(-config.settings.velocity/2);
-            //
-            // Phaser.Actions.Call(walls.getChildren(), function(e) {
-            //     e.x += config.settings.velocity;
-            // })
-
-        // } else if (cursors.right.isDown) {
-        //     player.setVelocityX(config.settings.velocity/2);
-        // } else {
-        //     player.setVelocityX(0);
-
+        if (that.physics.world.overlap(player, forces)) {
+            score++;
+            scoreBox.setText("000"+score);
         }
 
         if (cursors.up.isDown) {
@@ -215,8 +206,8 @@ function Game() {
             player.setVelocityY(-config.settings.jumpHeight);
         }
 
-        // Quick pause permanently - change this
-        if (spacebar && spacebar.isDown) {
+        // Shortcut to stop the game
+        if (ctrl.isDown && spacebar.isDown) {
             paused = true;
         }
     }
