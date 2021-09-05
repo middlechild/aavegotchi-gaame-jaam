@@ -1,2 +1,2 @@
-# aavegotchi-gaame-jaam
+# Haaunted Waalls
 Aavegotchi Hackathon Submission
